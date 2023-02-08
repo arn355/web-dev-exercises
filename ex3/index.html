@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Evolution of Eevee</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @font-face {
+        font-family: "Pokemon Solid";
+        src: url("fonts/PokemonSolidNormal-xyWR.ttf") format("truetype");
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        opacity: 0;
+        transition: all 0.2s;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      .nav-link:hover::after {
+        opacity: 1;
+      }
+
+      .navbar {
+        transition: all 0.5s;
+      }
+
+      .navbar-brand span {
+        font-family: "Pokemon Solid";
+        font-size: 120%;
+        -webkit-text-stroke: 1px black;
+      }
+
+      .banner-image {
+        background-image: url(assets/pokemon-banner-image.png);
+        background-size: cover;
+        background-position: center;
+      }
+
+      .icon {
+        max-width: 35px;
+      }
+
+      .type-icon {
+        padding: 2px 4px;
+      }
+
+      h1 {
+        -webkit-text-stroke: 2.5px black;
+        font-family: "Pokemon Solid";
+        font-size: 700%;
+        color: white;
+        margin: 25px;
+      }
+
+      h2 {
+        position: relative;
+        font-weight: 700;
+      }
+
+      h2 span {
+        position: absolute;
+        top: -100px;
+      }
+
+      .padding {
+        padding: 30px 0;
+      }
+
+      .padding img {
+        width: 100%;
+      }
+
+      th {
+        width: 1%;
+        white-space: nowrap;
+      }
+
+      .cell-num {
+        width: 1%;
+      }
+
+      .cell-barchart {
+        width: 70%;
+      }
+
+      .progress div {
+        background-color: #ff7f0f;
+      }
+
+      .barchart-rank1 div {
+        background-color: #ffdd57;
+      }
+
+      .progress {
+        border-radius: 3px;
+        height: 15px;
+        margin-top: 7px;
+      }
+
+      body {
+        font-family: "Fira Sans", "Trebuchet MS", Ubuntu, Helvetica, Arial,
+          sans-serif;
+      }
+
+      footer {
+        width: 100%;
+        padding: 2.5%;
+        color: white;
+      }
+
+      .fa {
+        padding: 15px;
+        font-size: 30px;
+        color: white;
+        transition: all 0.2s;
+      }
+
+      .fa:hover {
+        color: gray;
+      }
+
+      .card {
+        margin: 0 auto;
+        float: none;
+        /* margin-bottom: 10px; */
+      }
+
+      @media screen and (max-width: 1024px) {
+        .text-rwd {
+          -webkit-text-stroke: 2.25px black;
+          font-size: 500%;
+        }
+      }
+
+      @media screen and (max-width: 512px) {
+        .text-rwd {
+          -webkit-text-stroke: 2px black;
+          font-size: 400%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="assets/pokeball_icon.svg"
+            alt="Pokeball Icon Image"
+            class="d-inline-block align-text-center icon"
+          />
+          <span class="text-danger">Pokemon</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#pokedexData">Pokédex data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#baseStats">Base stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#training">Training</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#breeding">Breeding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#evolutions">Evolutions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Banner Image -->
+    <div
+      class="banner-image w-100 vh-100 d-flex justify-content-center align-items-center"
+    >
+      <h1 class="text-center text-rwd">Evolution of Eevee</h1>
+    </div>
+
+    <!-- Content -->
+    <!-- Pokedex data -->
+    <div class="padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <img src="assets/pokemons/eevee.png" alt="Eevee" />
+          </div>
+          <div class="col-sm-6">
+            <h2><span id="pokedexData"></span>Pokédex data</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>National №</th>
+                  <td><strong>133</strong></td>
+                </tr>
+                <tr>
+                  <th>Type</th>
+                  <td>
+                    <div class="btn btn-secondary type-icon">Normal</div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Species</th>
+                  <td>Evolution Pokémon</td>
+                </tr>
+                <tr>
+                  <th>Height</th>
+                  <td>0.3&nbsp;m (1′00″)</td>
+                </tr>
+                <tr>
+                  <th>Weight</th>
+                  <td>6.5&nbsp;kg (14.3&nbsp;lbs)</td>
+                </tr>
+                <tr>
+                  <th>Abilities</th>
+                  <td>
+                    <span class="text-muted"
+                      >1.
+                      <a
+                        href=""
+                        title="Enables a sure getaway from wild Pokémon."
+                        >Run Away</a
+                      ></span
+                    ><br /><span class="text-muted"
+                      >2.
+                      <a href="" title="Powers up moves of the same type."
+                        >Adaptability</a
+                      ></span
+                    ><br /><small class="text-muted"
+                      ><a href="" title="Senses a foe's dangerous moves."
+                        >Anticipation</a
+                      >
+                      (hidden ability)</small
+                    ><br />
+                  </td>
+                </tr>
+                <tr>
+                  <th>Local №</th>
+                  <td>
+                    133 <small class="text-muted">(Red/Blue/Yellow)</small
+                    ><br />180 <small class="">(Gold/Silver/Crystal)</small
+                    ><br />133
+                    <small class="text-muted">(FireRed/LeafGreen)</small
+                    ><br />163 <small class="text-muted">(Platinum)</small
+                    ><br />184
+                    <small class="text-muted">(HeartGold/SoulSilver)</small
+                    ><br />091
+                    <small class="text-muted">(Black 2/White 2)</small><br />077
+                    <small class="text-muted">(X/Y — Coastal Kalos)</small
+                    ><br />123
+                    <small class="text-muted">(Sun/Moon — Alola dex)</small
+                    ><br />153
+                    <small class="text-muted">(U.Sun/U.Moon — Alola dex)</small
+                    ><br />133
+                    <small class="text-muted"
+                      >(Let's Go Pikachu/Let's Go Eevee)</small
+                    ><br />196 <small class="text-muted">(Sword/Shield)</small
+                    ><br />025
+                    <small class="text-muted">(Legends: Arceus)</small><br />179
+                    <small class="text-muted">(Scarlet/Violet)</small><br />074
+                    <small class="text-muted">(The Crown Tundra)</small><br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training and Breeding -->
+    <div class="padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h2><span id="training"></span>Training</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>EV yield</th>
+                  <td class="text">1 Special Defense</td>
+                </tr>
+                <tr>
+                  <th>Catch rate</th>
+                  <td>
+                    45
+                    <small class="text-muted"
+                      >(5.9% with PokéBall, full HP)</small
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th>Base Friendship</th>
+                  <td>50 <small class="text-muted">(normal)</small></td>
+                </tr>
+                <tr>
+                  <th>Base Exp.</th>
+                  <td>65</td>
+                </tr>
+                <tr>
+                  <th>Growth Rate</th>
+                  <td>Medium Fast</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-2 padding"></div>
+          <div class="col-sm-4">
+            <h2><span id="breeding"></span>Breeding</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Egg Groups</th>
+                  <td>Field</td>
+                </tr>
+                <tr>
+                  <th>Gender</th>
+                  <td>
+                    <span class="text-blue">87.5% male</span>,
+                    <span class="text-pink">12.5% female</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Egg cycles</th>
+                  <td>
+                    35 <small class="text-muted">(8,739–8,995 steps)</small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Base stats -->
+    <div class="padding">
+      <div class="row container d-flex justify-content-center m-auto">
+        <div class="col-sm-12">
+          <h2><span id="baseStats"></span>Base stats</h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>HP</th>
+                <td class="cell-num">55</td>
+                <td class="cell-barchart">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 30.56%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">220</td>
+                <td class="cell-num">314</td>
+              </tr>
+              <tr>
+                <th>Attack</th>
+                <td class="cell-num">55</td>
+                <td class="cell-barchart">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 30.56%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">103</td>
+                <td class="cell-num">229</td>
+              </tr>
+              <tr>
+                <th>Defense</th>
+                <td class="cell-num">50</td>
+                <td class="cell-barchart">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 27.78%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">94</td>
+                <td class="cell-num">218</td>
+              </tr>
+              <tr>
+                <th>Sp. Atk</th>
+                <td class="cell-num">45</td>
+                <td class="cell-barchart">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 25%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">85</td>
+                <td class="cell-num">207</td>
+              </tr>
+              <tr>
+                <th>Sp. Def</th>
+                <td class="cell-num">65</td>
+                <td class="cell-barchart">
+                  <div class="progress barchart-rank1">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 36.11%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">121</td>
+                <td class="cell-num">251</td>
+              </tr>
+              <tr>
+                <th>Speed</th>
+                <td class="cell-num">55</td>
+                <td class="cell-barchart">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      style="width: 30.56%"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="cell-num">103</td>
+                <td class="cell-num">229</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <td class="cell-num cell-total">325</td>
+                <th class="cell-barchart"></th>
+                <th>Min</th>
+                <th>Max</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="text-muted">
+          The ranges shown on the right are for a level 100 Pokémon. Maximum
+          values are based on a beneficial nature, 252 EVs, 31 IVs; minimum
+          values are based on a hindering nature, 0 EVs, 0 IVs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Evolution -->
+    <div class="padding">
+      <div class="container">
+        <h2 class="text-center mb-4"><span id="evolutions"></span>Evolutions</h2>
+        <div class="row">
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/espeon.png"
+                class="card-img-top"
+                alt="espeon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color: #ff227a;">Espeon</h5>
+                <p class="card-text">(high Friendship, Daytime)</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/flareon.png"
+                class="card-img-top"
+                alt="flareon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#d52100;">Flareon</h5>
+                <p class="card-text">
+                  (use Fire Stone)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/glaceon.png"
+                class="card-img-top"
+                alt="glaceon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#0af;">Glaceon</h5>
+                <p class="card-text">
+                  (use Ice Stone, or level up near an Icy Rock)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/jolteon.png"
+                class="card-img-top"
+                alt="jolteon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#c90;">Jolteon</h5>
+                <p class="card-text">
+                  (use Thunder Stone)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/leafeon.png"
+                class="card-img-top"
+                alt="leafeon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#5cb737;">Leafeon</h5>
+                <p class="card-text">
+                  (use Leaf Stone, or level up near a Mossy Rock)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/umbreon.png"
+                class="card-img-top"
+                alt="umbreon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#573e31;">Umbreon</h5>
+                <p class="card-text">
+                  (high Friendship, Nighttime)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/vaporeon.png"
+                class="card-img-top"
+                alt="vaporeon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#0080ff;">Vaporeon</h5>
+                <p class="card-text">
+                  (use Water Stone)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex">
+            <div class="card border-dark mb-3 text-center" style="width: 17rem">
+              <img
+                src="assets/pokemons/sylveon.png"
+                class="card-img-top"
+                alt="sylveon"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="color:#e76de7;">Sylveon</h5>
+                <p class="card-text">
+                  (after Fairy-type move learned, and either ♥♥ Affection in Gen 6-7 or high friendship in Gen 8+)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact (footer) -->
+    <div class="padding"></div>
+    <footer class="container-fluid bg-dark bg-gradient text-center">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2><span id="contact"></span>Contact Us</h2>
+          <a href="https://github.com/arn355" class="fa fa-github"></a>
+          <a
+            href="https://www.linkedin.com/in/chonlapluet-khongchuai-539a6422b/"
+            class="fa fa-linkedin"
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Navbar effect  -->
+    <script>
+      const navEl = document.querySelector(".navbar");
+
+      console.log(window.onscroll);
+      window.addEventListener("scroll", () => {
+        if (window.scrollY >= 56) {
+          navEl.classList.add("bg-dark", "bg-gradient", "shadow");
+        } else if (window.scrollY < 56) {
+          navEl.classList.remove("bg-dark", "bg-gradient", "shadow");
+        }
+      });
+    </script>
+  </body>
+</html>
