@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="maincontainer"></div>
+    <script>
+      const maincontainer = document.getElementById("maincontainer");
+
+      // Header
+      const header = document.createElement("h2");
+      const header_text = document.createTextNode(
+        "Exercise 04: Javascript&DOM"
+      );
+      header.appendChild(header_text);
+      maincontainer.appendChild(header);
+
+      // Date button
+      const btn_container = document.createElement("div");
+      btn_container.style.height = "30px";
+      maincontainer.appendChild(btn_container);
+
+      const btn = document.createElement("button");
+      const btn_text = document.createTextNode(
+        "Click me to display Date and Time"
+      );
+      const btnAttributes = {
+        style: "cursor: pointer;",
+        id: "btnDate",
+      };
+      setMulAttribute(btn, btnAttributes);
+      btn.appendChild(btn_text);
+      btn_container.appendChild(btn);
+
+      // Personal Info
+      const info_container = document.createElement("div");
+      maincontainer.appendChild(info_container);
+
+      const info = document.createElement("p");
+      const info_text = document.createTextNode("Personal Info");
+      const infoAttributes = {
+        style:
+          "color: plum; text-decoration: underline; cursor: pointer; width: fit-content;",
+        id: "info",
+        onclick: "toggleInfo(ul)",
+        onmouseover: "changeStyle(this)",
+        onmouseleave: "changeBack(this)",
+      };
+      setMulAttribute(info, infoAttributes);
+      info.appendChild(info_text);
+      info_container.appendChild(info);
+
+      const info_list = [
+        "Chonlapluet Khongchuai, ID: 64010168",
+        "Subject: Web Application Development",
+        "Semetry: 2",
+      ];
+
+      const ul = document.createElement("ul");
+      info_container.appendChild(ul);
+
+      for (const info of info_list) {
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(info));
+        ul.appendChild(li);
+      }
+
+      ul.style.display = "none";
+
+      // Snapshot
+      const snapshot_container = document.createElement("div");
+      maincontainer.appendChild(snapshot_container);
+
+      const snapshot_header = document.createElement("h1");
+      const snapshot_header_text = document.createTextNode("Snapshots");
+      snapshot_header.appendChild(snapshot_header_text);
+      snapshot_container.appendChild(snapshot_header);
+
+      snap_list = ["Fireworks", "Crest", "Action", "Buffalo"];
+      snap_pics = [
+        "https://dthezntil550i.cloudfront.net/6x/latest/6x2201011245083010014380500/1280_960/4735c865-b16d-47a8-a846-24c6d22862c1.png",
+        "https://i.ytimg.com/vi/mH54_RUZE70/maxresdefault.jpg",
+        "https://i.imgflip.com/2pwogi.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzcO1OnvnYyVp8muVeAzW8UZkdl5XpnJTR3Q&usqp=CAU",
+      ];
+      const snap_ul = document.createElement("ul");
+      snapshot_container.appendChild(snap_ul);
+
+      for (let i = 0; i < 4; i++) {
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        span.appendChild(document.createTextNode(snap_list[i]));
+        span.style.color = "blue";
+        span.style.textDecoration = "underline";
+        span.style.cursor = "pointer";
+        li.appendChild(span);
+        snap_ul.appendChild(li);
+        span.onclick = () => {
+          img.src = snap_pics[i];
+        };
+      }
+
+      const img = document.createElement("img");
+      img.style.width = "500px";
+      img.src =
+        "https://ev.runlah.com/api/1/images/e-P9CHfLTECN--banner.jpg?size=xl";
+      snapshot_container.appendChild(img);
+
+      // Functions
+      // Function for setting multiple attribute on element
+      function setMulAttribute(elem, elemAttributes) {
+        Object.keys(elemAttributes).forEach((attribute) => {
+          elem.setAttribute(attribute, elemAttributes[attribute]);
+        });
+      }
+
+      // Personal info function
+      const toggleInfo = (element) => {
+        if (element.style.display == "none") {
+          element.style.display = "block";
+        } else {
+          element.style.display = "none";
+        }
+      };
+
+      const changeStyle = (element) => {
+        element.style.color = "blue";
+        element.style.backgroundColor = "yellow";
+      };
+
+      const changeBack = (element) => {
+        element.style.color = "plum";
+        element.style.backgroundColor = null;
+      };
+
+      // Web Worker
+      let w;
+
+      btn.onclick = () => {
+        if (typeof w == "undefined") {
+          w = new Worker("worker.js");
+
+          w.onmessage = (event) => {
+            btn.style.position = "fixed";
+            btn.style.top = 0;
+            btn.style.right = 0;
+            btn.style.border = "3px solid black";
+            btn.style.backgroundColor =
+              "#" + Math.floor(Math.random() * 16777215).toString(16);
+            btn.style.color =
+              "#" + Math.floor(Math.random() * 16777215).toString(16);
+            btn.innerText = event.data;
+          };
+        } else {
+          w.terminate();
+          w = undefined;
+          btn.style.position = null;
+        }
+      };
+    </script>
+  </body>
+</html>
