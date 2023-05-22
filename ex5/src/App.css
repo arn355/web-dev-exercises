@@ -1,0 +1,14 @@
+body {
+  background-color: grey;
+}
+
+h1 {
+  text-align: center;
+  color: #ffc300;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
